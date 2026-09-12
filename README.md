@@ -19,27 +19,30 @@ The pipeline:
 ## Architecture
 
 ```text
-                    Apache Airflow
-                 (Orchestration Layer)
+                   Apache Airflow
+               (Orchestration Layer)
                          |
                          v
-                  Extract & Transform
+                Extract & Transform
                          |
                          v
-                    Data Modeling
+                     Validate
+                         |
+                         v
+                   Data Modeling
                          |
               +----------+----------+
-              |          |          |
-              v          v          v
-          Dimensions    Fact     Validation
-              |          |
+              |                     |
+              v                     v
+        Dimension Tables        Fact Table
+              |                     |
               +----------+----------+
                          |
                          v
-                PostgreSQL / Supabase
-                    |            |
-                    v            v
-              SQL Analytics   Audit Table
+                 PostgreSQL / Supabase
+                    /             \
+                   v               v
+             SQL Analytics     Audit Table
 ```
 ## Tech Stack
 
