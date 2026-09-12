@@ -2,8 +2,8 @@ from datetime import datetime, timedelta
 
 import pandas as pd
 
-from airflow import DAG
-from airflow.operators.python import PythonOperator
+from airflow import DAG # type: ignore
+from airflow.operators.python import PythonOperator # type: ignore
 
 from src.extraction.extract import extract_data
 from src.transformation.transform import transform_data
@@ -25,7 +25,7 @@ from src.loading.dimension_loader import (
 from src.modeling.fact import create_fact_table
 from src.loading.fact_loader import load_fact_table
 
-from src.utils.audits import (
+from src.monitoring.audit import (
     start_pipeline_run,
     finish_pipeline_run,
 )
