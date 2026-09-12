@@ -48,3 +48,12 @@ CREATE TABLE fact_orders (
     total_item_quantity INTEGER,
     is_delivered BOOLEAN
 );
+-- audit table
+CREATE TABLE pipeline_runs (
+    run_id BIGSERIAL PRIMARY KEY,
+    start_time TIMESTAMP,
+    end_time TIMESTAMP,
+    status TEXT,
+    rows_extracted INTEGER,
+    rows_loaded INTEGER
+);
