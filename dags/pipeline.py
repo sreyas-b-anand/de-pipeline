@@ -1,27 +1,21 @@
-from datetime import datetime
-
+from datetime import datetime , timedelta
 import pandas as pd
-
 from airflow import DAG # type: ignore
 from airflow.operators.python import PythonOperator # type: ignore
-
 from src.extraction.extract import extract_data
 from src.transformation.transform import transform_data
-
 from src.modeling.dimensions import (
     create_restaurant_dimension,
     create_customer_dimension,
     create_location_dimension,
     create_date_dimension,
 )
-
 from src.loading.dimension_loader import (
     load_restaurant_dimension,
     load_customer_dimension,
     load_location_dimension,
     load_date_dimension,
 )
-
 from src.modeling.fact import create_fact_table
 from src.loading.fact_loader import load_fact_table
 
@@ -96,13 +90,19 @@ def fact_task(**context):
     fact_df = create_fact_table(df)
 
     load_fact_table(fact_df)
-
+    
+default_args = {
+    "retries": 2,
+    "retry_delay": timedelta(minutes=2),
+}
 
 with DAG(
     dag_id="food_delivery_pipeline",
     start_date=datetime(2026, 1, 1),
     schedule=None,
     catchup=False,
+    default_args=default_args
+    
 ) as dag:
 
     extract_transform = PythonOperator(
