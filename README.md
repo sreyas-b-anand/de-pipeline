@@ -1,6 +1,7 @@
 # Food Delivery Data Engineering Pipeline
 
 A Python-based data engineering pipeline that extracts food delivery order data from a CSV dataset, performs data cleaning and transformation, validates the data, models it using a star schema, and incrementally loads it into PostgreSQL hosted on Supabase.
+
 ## Project Overview
 
 This project demonstrates an end-to-end ETL pipeline for food delivery data.
